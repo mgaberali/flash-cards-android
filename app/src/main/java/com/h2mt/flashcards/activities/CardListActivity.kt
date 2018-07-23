@@ -42,8 +42,12 @@ class CardListActivity : AppCompatActivity() {
                     if(response.isSuccessful){
                         val cardsList = response.body()
                         cardsList?.let {
-                            val cardAdapter = CardAdapter(cardsList)
-                            cards_recycleview.adapter = cardAdapter
+                            if (cards_recycleview.adapter == null){
+                                cards_recycleview.adapter = CardAdapter(cardsList)
+                            } else {
+                                (cards_recycleview.adapter as CardAdapter).updateCardList(cardsList)
+                            }
+
                         }
                         cards_recycleview.scrollToPosition(0)
                         cards_recycleview.visibility = View.VISIBLE

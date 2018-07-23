@@ -1,5 +1,6 @@
 package com.h2mt.flashcards.recyclerviews
 
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -26,9 +27,34 @@ class CardAdapter (private var cardList: List<Card>) : RecyclerView.Adapter<Card
         viewHolder.definition.text = card.definition
     }
 
+    fun updateCardList(cards: List<Card>) {
+        DiffUtil.calculateDiff(CardRowDiffCallback(cards, cardList), false).dispatchUpdatesTo(this)
+        cardList = cards
+    }
+
 }
 
 class CardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val term = view.term_tv!!
     val definition = view.definition_tv!!
+}
+
+class CardRowDiffCallback (private val newRows: List<Card>, private val oldRows: List<Card>) :
+        DiffUtil.Callback() {
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldRow = oldRows[oldItemPosition]
+        val newRow = newRows[newItemPosition]
+        return oldRow.id == newRow.id
+    }
+
+    override fun getOldListSize(): Int = oldRows.size
+
+    override fun getNewListSize(): Int = newRows.size
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldRow = oldRows[oldItemPosition]
+        val newRow = newRows[newItemPosition]
+        return oldRow == newRow
+    }
+
 }

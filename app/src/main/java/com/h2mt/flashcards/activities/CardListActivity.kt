@@ -1,6 +1,7 @@
 package com.h2mt.flashcards.activities
 
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -24,6 +25,12 @@ class CardListActivity : AppCompatActivity() {
         cards_recycleview.layoutManager = LinearLayoutManager(this)
 
         loadCardsBySetId(4)
+
+        swipeContainer.setOnRefreshListener({
+            loadCardsBySetId(4)
+            swipeContainer.isRefreshing = false
+        })
+
     }
 
     private fun loadCardsBySetId(setId: Int){

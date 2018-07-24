@@ -7,15 +7,23 @@
     android:background="#ADB4A9"
     tools:context=".activities.CardListActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/cards_recycleview"
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ADB4A9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cards_recycleview"
+            android:background="#ADB4A9"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <ProgressBar
         android:id="@+id/progress"

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import com.h2mt.flashcards.R
 import com.h2mt.flashcards.models.Card
 import kotlinx.android.synthetic.main.card_row_item.view.*
@@ -25,11 +26,19 @@ class CardAdapter (private var cardList: List<Card>) : RecyclerView.Adapter<Card
         val card = cardList[position]
         viewHolder.term.text = card.term
         viewHolder.definition.text = card.definition
+        setAnimation(viewHolder.itemView)
     }
 
     fun updateCardList(cards: List<Card>) {
         DiffUtil.calculateDiff(CardRowDiffCallback(cards, cardList), false).dispatchUpdatesTo(this)
         cardList = cards
+    }
+
+    private fun setAnimation(viewToAnimate: View) {
+        if (viewToAnimate.animation == null) {
+            val animation = AnimationUtils.loadAnimation(viewToAnimate.context, android.R.anim.slide_in_left)
+            viewToAnimate.animation = animation
+        }
     }
 
 }

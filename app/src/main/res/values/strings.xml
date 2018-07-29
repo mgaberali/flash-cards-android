@@ -1,6 +1,18 @@
 <resources>
+
+    <!-- App Config -->
     <string name="app_name">Flash Cards</string>
-    <string name="flash_cards_api_url">http://192.168.1.2:8080/api/</string>
+    <string name="flash_cards_api_url">http://192.168.1.3:8080/api/</string>
+
+    <!-- Shared Preferences Keys -->
     <string name="user_preference_file_key">com.h2mt.flashcards.USER_PREFERENCE</string>
     <string name="user_preference_access_token_key">accessToken</string>
+
+    <!-- Extras Keys -->
+    <string name="extra_set_key">extraSetKey</string>
+
+    <!-- messages -->
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="something_went_wrong">Sorry something went wrong, please try again</string>
+
 </resources>

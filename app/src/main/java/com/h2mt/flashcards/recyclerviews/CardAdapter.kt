@@ -10,7 +10,9 @@ import com.h2mt.flashcards.R
 import com.h2mt.flashcards.models.Card
 import kotlinx.android.synthetic.main.card_row_item.view.*
 
-class CardAdapter (private var cardList: List<Card>) : RecyclerView.Adapter<CardViewHolder>() {
+class CardAdapter (private var cardList: ArrayList<Card>, val cardListOperations: CardListOperations) : RecyclerView.Adapter<CardViewHolder>() {
+
+    private val TAG = "CardListActivity"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
@@ -26,10 +28,22 @@ class CardAdapter (private var cardList: List<Card>) : RecyclerView.Adapter<Card
         val card = cardList[position]
         viewHolder.term.text = card.term
         viewHolder.definition.text = card.definition
-        setAnimation(viewHolder.itemView)
+        viewHolder.delete_btn.setOnClickListener {
+            removeItem(position)
+        }
+        //setAnimation(viewHolder.itemView)
     }
 
-    fun updateCardList(cards: List<Card>) {
+    private fun removeItem(position: Int) {
+        val card = cardList[position]
+        cardListOperations.deleteCard(card.id, {
+            cardList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, cardList.size)
+        })
+    }
+
+    fun updateCardList(cards: ArrayList<Card>) {
         DiffUtil.calculateDiff(CardRowDiffCallback(cards, cardList), false).dispatchUpdatesTo(this)
         cardList = cards
     }
@@ -46,6 +60,8 @@ class CardAdapter (private var cardList: List<Card>) : RecyclerView.Adapter<Card
 class CardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val term = view.term_tv!!
     val definition = view.definition_tv!!
+    val delete_btn = view.delete_card_btn!!
+    val edit_btn = view.edit_card_btn!!
 }
 
 class CardRowDiffCallback (private val newRows: List<Card>, private val oldRows: List<Card>) :
@@ -66,4 +82,8 @@ class CardRowDiffCallback (private val newRows: List<Card>, private val oldRows:
         return oldRow == newRow
     }
 
+}
+
+interface CardListOperations {
+    fun deleteCard(cardId: Int, callback: ()-> Unit)
 }

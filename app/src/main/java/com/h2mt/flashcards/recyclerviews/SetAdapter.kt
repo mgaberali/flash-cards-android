@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.h2mt.flashcards.R
 import com.h2mt.flashcards.models.Set
 import kotlinx.android.synthetic.main.card_row_item.view.*
+import kotlinx.android.synthetic.main.set_row_item.view.*
 
 class SetAdapter (private var setList: List<Set>) : RecyclerView.Adapter<SetViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SetViewHolder {
@@ -21,12 +22,10 @@ class SetAdapter (private var setList: List<Set>) : RecyclerView.Adapter<SetView
 
     override fun onBindViewHolder(viewHolder: SetViewHolder, position: Int) {
         val set = setList[position]
-        viewHolder.term.text = set.name
-        viewHolder.definition.text = set.desc
+        viewHolder.name.text = set.name
     }
 }
 
 class SetViewHolder(view: View) : RecyclerView.ViewHolder(view){
-    val term = view.term_tv!!
-    val definition = view.definition_tv!!
+    val name = view.name!!
 }

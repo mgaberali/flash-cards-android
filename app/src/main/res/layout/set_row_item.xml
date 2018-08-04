@@ -8,7 +8,8 @@
     android:layout_marginRight="8dp"
     android:layout_marginTop="8dp"
     android:background="#FFFFFF"
-    android:paddingBottom="10dp">
+    android:paddingBottom="10dp"
+    tools:context=".activities.SetListActivity">
 
     <TextView
         android:id="@+id/name"
@@ -19,6 +20,9 @@
         tools:layout_editor_absoluteX="87dp"
         tools:layout_editor_absoluteY="9dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:editable="false"
+        android:clickable="true"
+        android:focusable="true"/>
 
 </android.support.constraint.ConstraintLayout>

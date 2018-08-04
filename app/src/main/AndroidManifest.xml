@@ -19,7 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CardListActivity" android:parentActivityName=".activities.MainActivity">
+        <activity android:name=".activities.CardListActivity" android:parentActivityName=".activities.SetListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.SetListActivity" />
+        </activity>
+        <activity android:name=".activities.SetListActivity" android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />

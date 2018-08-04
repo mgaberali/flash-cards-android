@@ -13,6 +13,9 @@ import kotlinx.android.synthetic.main.activity_card_list.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.content.Intent
+
+
 
 class CardListActivity : AppCompatActivity() {
 
@@ -23,7 +26,9 @@ class CardListActivity : AppCompatActivity() {
         cards_recycleview.visibility = View.GONE
         cards_recycleview.layoutManager = LinearLayoutManager(this)
 
-        loadCardsBySetId(4)
+        val intent = intent
+        val setId = intent.getIntExtra("setId", 0)
+        loadCardsBySetId(setId)
     }
 
     private fun loadCardsBySetId(setId: Int){
@@ -39,6 +44,7 @@ class CardListActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<List<Card>>?, response: Response<List<Card>>?) {
                 response?.let {
+                    Log.i("GET_CARDS", "responsweeeeeeeeeeeeeeeeeeeeeee")
                     if(response.isSuccessful){
                         val cardsList = response.body()
                         cardsList?.let {

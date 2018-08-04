@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.set_row_item.view.*
 class SetAdapter (private var setList: List<Set>) : RecyclerView.Adapter<SetViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SetViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val inflatedView: View = layoutInflater.inflate(R.layout.card_row_item, parent, false)
+        val inflatedView: View = layoutInflater.inflate(R.layout.set_row_item, parent, false)
         return SetViewHolder(inflatedView)
     }
 

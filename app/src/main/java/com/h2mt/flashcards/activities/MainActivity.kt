@@ -26,5 +26,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, CardListActivity::class.java)
             startActivity(intent)
         })
+
+        signinbutton.setOnClickListener({
+            val intent = Intent(this, SetListActivity::class.java)
+            startActivity(intent)
+        })
     }
 }

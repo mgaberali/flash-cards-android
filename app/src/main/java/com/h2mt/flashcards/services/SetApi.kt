@@ -7,5 +7,5 @@ import retrofit2.http.GET
 
 interface SetApi {
     @GET("set")
-    fun getSets() : Call<List<Card>>
+    fun getSets() : Call<List<Set>>
 }

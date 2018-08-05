@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.SetListActivity">
+    <EditText
+        android:id="@+id/setName"
+        android:layout_width="wrap_content"
+        android:layout_height="80px"
+        android:layout_weight="1"
+        android:background="#555"
+        android:text="SetName" />
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:id="@+id/setDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="80px"
+        android:text="setDesc"
+        android:background="#555"
+        tools:layout_editor_absoluteX="108dp"
+        tools:layout_editor_absoluteY="46dp" />
+    <Button
+        android:id="@+id/addSett"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Button" />
+</LinearLayout>

@@ -13,4 +13,6 @@ object CardService {
     fun createCard(request: CreateCardRequest) = cardApi.createCard(request)
 
     fun deleteCard(cardId: Int) = cardApi.deleteCard(cardId)
+
+    fun updateCard(cardId: Int, card: Card) = cardApi.updateCard(cardId, card)
 }

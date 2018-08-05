@@ -9,7 +9,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import com.h2mt.flashcards.R
-import com.h2mt.flashcards.dialogs.CreateCardDialogFragment
+import com.h2mt.flashcards.dialogs.CardOperation
+import com.h2mt.flashcards.dialogs.CardDialogFragment
 import com.h2mt.flashcards.models.Card
 import com.h2mt.flashcards.models.Set
 import com.h2mt.flashcards.recyclerviews.CardAdapter
@@ -50,12 +51,7 @@ class CardListActivity : AppCompatActivity(), DialogInterface.OnDismissListener,
         })
 
         create_card_fab.setOnClickListener {
-            val fragmentManager = supportFragmentManager
-            val createCardDialog = CreateCardDialogFragment()
-            createCardDialog.set = set
-            val transaction = fragmentManager.beginTransaction()
-            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            transaction.add(android.R.id.content, createCardDialog).addToBackStack(null).commit()
+            openCardDialog(CardOperation.CREATE_CARD, set, null)
         }
 
     }
@@ -122,6 +118,20 @@ class CardListActivity : AppCompatActivity(), DialogInterface.OnDismissListener,
             }
 
         })
+    }
+
+    override fun updateCard(card: Card) {
+        openCardDialog(CardOperation.UPDATE_CARD, set, card)
+    }
+
+    private fun openCardDialog(cardOperation: CardOperation, set: Set, card: Card?) {
+        val fragmentManager = supportFragmentManager
+        val createCardDialog = CardDialogFragment(cardOperation)
+        createCardDialog.set = set
+        createCardDialog.card = card
+        val transaction = fragmentManager.beginTransaction()
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        transaction.add(android.R.id.content, createCardDialog).addToBackStack(null).commit()
     }
 
     private fun showLoading(){

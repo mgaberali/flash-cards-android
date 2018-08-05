@@ -31,6 +31,9 @@ class CardAdapter (private var cardList: ArrayList<Card>, val cardListOperations
         viewHolder.delete_btn.setOnClickListener {
             removeItem(position)
         }
+        viewHolder.edit_btn.setOnClickListener({
+            cardListOperations.updateCard(card)
+        })
         //setAnimation(viewHolder.itemView)
     }
 
@@ -86,4 +89,5 @@ class CardRowDiffCallback (private val newRows: List<Card>, private val oldRows:
 
 interface CardListOperations {
     fun deleteCard(cardId: Int, callback: ()-> Unit)
+    fun updateCard(card: Card)
 }

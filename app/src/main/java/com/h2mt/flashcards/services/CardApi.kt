@@ -15,4 +15,7 @@ interface CardApi {
 
     @DELETE("card/{cardId}")
     fun deleteCard(@Path("cardId") cardId: Int) : Call<Void>
+
+    @PUT("card/{cardId}")
+    fun updateCard(@Path("cardId") cardId: Int, @Body card: Card) : Call<Void>
 }

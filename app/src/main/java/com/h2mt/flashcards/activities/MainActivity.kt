@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         val userSharedPref = getSharedPreferences(this
                 .getString(R.string.user_preference_file_key), Context.MODE_PRIVATE)
         with(userSharedPref.edit()){
-            putString(this@MainActivity.getString(R.string.user_preference_access_token_key), "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiZmxhc2gtY2FyZHMiXSwiZXhwIjoxNTMyOTM0OTA3LCJ1c2VyX25hbWUiOiJtb2hhbWVkQGdtYWlsLmNvbSIsImp0aSI6IjYzMmZhMmVjLTZjMmMtNDI2Ni05YmM5LWJjNDIxOWViMmI3ZSIsImNsaWVudF9pZCI6IndlYiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.ULfImguBGP31yQPj-g16SShUM6cyB2tZsnPvwhd5EiI")
+            putString(this@MainActivity.getString(R.string.user_preference_access_token_key), "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiZmxhc2gtY2FyZHMiXSwiZXhwIjoxNTMzNTE2NTY2LCJ1c2VyX25hbWUiOiJtb2hhbWVkQGdtYWlsLmNvbSIsImp0aSI6IjIzMWQ1NmJmLTJhOWEtNDQ1Ny04MDY4LTVhZTFkYjJlMDdkMyIsImNsaWVudF9pZCI6IndlYiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.xzJxirwA4odEWREV8do75f5njEhikF81rW4xizPN-N8")
             commit()
         }
         //-------------------------------------------------------

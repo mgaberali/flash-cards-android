@@ -101,10 +101,10 @@ class SetListActivity: AppCompatActivity(), SetListOperations {
         })
 
 
-        var button =  findViewById(R.id.addSett) as Button
+        var button =  popupView.findViewById(R.id.addSett) as Button
         button.setOnClickListener({
-            var setNameTextView = findViewById(R.id.setName) as TextView
-            var setDescTextView = findViewById(R.id.setDesc) as TextView
+            var setNameTextView = popupView.findViewById(R.id.setName) as TextView
+            var setDescTextView = popupView.findViewById(R.id.setDesc) as TextView
             val setCreateRequest = SetCreateRequest(name=setNameTextView.text.toString(), desc = setDescTextView.text.toString())
             SetService.addSet(request = setCreateRequest).enqueue(object: Callback<Void>{
                 override fun onFailure(call: Call<Void>?, t: Throwable?) {

@@ -10,6 +10,7 @@ import android.view.View
 import com.h2mt.flashcards.R
 import com.h2mt.flashcards.models.Card
 import com.h2mt.flashcards.models.Set
+import com.h2mt.flashcards.models.SetCreateRequest
 import com.h2mt.flashcards.recyclerviews.CardAdapter
 import com.h2mt.flashcards.recyclerviews.SetAdapter
 import com.h2mt.flashcards.recyclerviews.SetListOperations
@@ -32,6 +33,22 @@ class SetListActivity: AppCompatActivity(), SetListOperations {
         sets_recycleview.layoutManager = LinearLayoutManager(this)
 
         loadSets()
+
+        addSet.setOnClickListener(View.OnClickListener {
+            val setCreateRequest = SetCreateRequest(name="hossam", desc = "hossam desc")
+            SetService.addSet(request = setCreateRequest).enqueue(object: Callback<Void>{
+                override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                    Log.e("ADD_SET", t.toString())
+                }
+
+                override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                    Log.i("ADD_SET", "add set repsonse received successfully")
+                    if(response!!.isSuccessful){
+                        Log.i("ADD_SET", "add set repsonse received successfully")
+                    }
+                }
+            })
+        })
     }
 
     override fun openSet(setId: Integer) {
@@ -46,12 +63,12 @@ class SetListActivity: AppCompatActivity(), SetListOperations {
 
         SetService.getSets().enqueue(object : Callback<List<Set>>{
             override fun onFailure(call: Call<List<Set>>?, t: Throwable?) {
-                Log.e("GET_CARDS", t.toString())
+                Log.e("GET_SETS", t.toString())
             }
 
             override fun onResponse(call: Call<List<Set>>?, response: Response<List<Set>>?) {
                 response?.let{
-                    Log.i("GET_SetS", "Get sets repsonse received successfully")
+                    Log.i("GET_SETSS", "Get sets repsonse received successfully")
                     if(response.isSuccessful){
                         val setsList = response.body()
                         setsList?.let{

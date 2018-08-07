@@ -29,15 +29,27 @@ class SetAdapter (private var setList: List<Set>, val setListOperations: SetList
         viewHolder.name.text = set.name
 
         viewHolder.name.setOnClickListener {
-            setListOperations.openSet( Integer(set.id))
+            setListOperations.openSet(Integer(set.id))
+        }
+
+        viewHolder.deleteButton.setOnClickListener{
+            setListOperations.deleteSet(Integer(set.id))
+        }
+
+        viewHolder.editButton.setOnClickListener{
+            setListOperations.editSet(set, it)
         }
     }
 }
 
 class SetViewHolder(view: View) : RecyclerView.ViewHolder(view){
     val name = view.name!!
+    val deleteButton = view.deleteButton!!
+    val editButton = view.editButton!!
 }
 
 interface SetListOperations{
     fun openSet(setId: Integer)
+    fun deleteSet(setId: Integer)
+    fun editSet(setInfo: Set, it: View)
 }

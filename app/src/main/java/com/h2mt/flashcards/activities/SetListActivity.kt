@@ -26,6 +26,8 @@ import android.view.MotionEvent
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.*
+import kotlinx.android.synthetic.main.set_add_popup.view.*
+import kotlinx.android.synthetic.main.set_row_item.*
 
 
 class SetListActivity: AppCompatActivity(), SetListOperations {
@@ -40,9 +42,30 @@ class SetListActivity: AppCompatActivity(), SetListOperations {
         loadSets()
 
         addSet.setOnClickListener(View.OnClickListener {
-            onButtonShowPopupWindowClick(it)
+            var pair = onButtonShowPopupWindowClick(it)
+            clickListenerToAddSet(pair.first, pair.second)
         })
 
+    }
+
+    override fun editSet(set: Set, it: View) {
+        var pair = onButtonShowPopupWindowClick(it)
+        prepareFormToUpdate(pair.first, set)
+        clickListenerToUpdateSet(pair.first, pair.second, set)
+    }
+
+    override fun deleteSet(setId: Integer) {
+        SetService.deleteSet(setId).enqueue(object: Callback<Void>{
+            override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                Log.e("DELETE_SETS", t.toString())
+            }
+
+            override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                response?.let{
+                    Log.i("DELETE_SETS", "Delete set repsonse received successfully")
+                }
+            }
+        })
     }
 
     override fun openSet(setId: Integer) {
@@ -78,8 +101,7 @@ class SetListActivity: AppCompatActivity(), SetListOperations {
         })
     }
 
-    fun onButtonShowPopupWindowClick(view: View) {
-
+    fun onButtonShowPopupWindowClick(view: View) : Pair<View, PopupWindow>{
         // inflate the layout of the popup window
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView = inflater.inflate(R.layout.set_add_popup, null)
@@ -100,7 +122,42 @@ class SetListActivity: AppCompatActivity(), SetListOperations {
             true
         })
 
+        return Pair(popupView, popupWindow)
+    }
 
+    fun prepareFormToUpdate(popupView: View, set:Set){
+        var setNameTextView = popupView.findViewById(R.id.setName) as TextView
+        setNameTextView.text = set.name
+        var setDescTextView = popupView.findViewById(R.id.setDesc) as TextView
+        setDescTextView.text = set.desc
+    }
+
+    fun clickListenerToUpdateSet(popupView: View, popupWindow: PopupWindow, set: Set){
+        var button =  popupView.findViewById(R.id.addSett) as Button
+        button.setOnClickListener({
+            var setNameTextView = popupView.findViewById(R.id.setName) as TextView
+            var setDescTextView = popupView.findViewById(R.id.setDesc) as TextView
+            val setCreateRequest = SetCreateRequest(name=setNameTextView.text.toString(), desc = setDescTextView.text.toString())
+            Log.i("UPDATE_SET",  setDescTextView.text.toString())
+            SetService.updateSet(setId = Integer(set.id), request = setCreateRequest).enqueue(object: Callback<Void>{
+                override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                    Log.e("UPDATE_SET", t.toString())
+                }
+
+                override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                    Log.i("UPDATE_SET", "update set repsonse received successfully")
+                    Log.i("UPDATE_SET", response.toString())
+//                    Log.i("UPDATE_SET", response!!.raw().request().method())
+                    if(response!!.isSuccessful){
+                        Log.i("UPDATE_SET", "update set repsonse received successfully")
+                        popupWindow.dismiss()
+                    }
+                }
+            })
+        })
+    }
+
+    fun clickListenerToAddSet(popupView: View, popupWindow: PopupWindow){
         var button =  popupView.findViewById(R.id.addSett) as Button
         button.setOnClickListener({
             var setNameTextView = popupView.findViewById(R.id.setName) as TextView
@@ -115,9 +172,11 @@ class SetListActivity: AppCompatActivity(), SetListOperations {
                     Log.i("ADD_SET", "add set repsonse received successfully")
                     if(response!!.isSuccessful){
                         Log.i("ADD_SET", "add set repsonse received successfully")
+                        popupWindow.dismiss()
                     }
                 }
             })
         })
     }
+
 }

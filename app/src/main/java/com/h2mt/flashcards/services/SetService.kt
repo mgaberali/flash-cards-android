@@ -10,4 +10,8 @@ object SetService {
     fun getSets() = setApi.getSets()
 
     fun addSet(request: SetCreateRequest) = setApi.addSet(request)
+
+    fun deleteSet(setId: Integer) = setApi.deleteSet(setId)
+
+    fun updateSet(setId: Integer, request: SetCreateRequest) = setApi.updateSet(setId, request)
 }

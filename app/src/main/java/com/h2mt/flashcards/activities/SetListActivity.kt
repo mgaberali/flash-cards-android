@@ -89,7 +89,7 @@ class SetListActivity: AppCompatActivity(), SetListOperations {
                     if(response.isSuccessful){
                         val setsList = response.body()
                         setsList?.let{
-                            val setAdapter = SetAdapter(setsList, this@SetListActivity)
+                            val setAdapter = SetAdapter(ArrayList(setsList), this@SetListActivity)
                             sets_recycleview.adapter = setAdapter
                         }
                         sets_recycleview.scrollToPosition(0)

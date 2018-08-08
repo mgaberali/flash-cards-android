@@ -13,7 +13,7 @@ import com.h2mt.flashcards.models.Set
 import kotlinx.android.synthetic.main.card_row_item.view.*
 import kotlinx.android.synthetic.main.set_row_item.view.*
 
-class SetAdapter (private var setList: List<Set>, val setListOperations: SetListOperations) : RecyclerView.Adapter<SetViewHolder>(){
+class SetAdapter (private var setList: ArrayList<Set>, val setListOperations: SetListOperations) : RecyclerView.Adapter<SetViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SetViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
         val inflatedView: View = layoutInflater.inflate(R.layout.set_row_item, parent, false)
@@ -34,6 +34,9 @@ class SetAdapter (private var setList: List<Set>, val setListOperations: SetList
 
         viewHolder.deleteButton.setOnClickListener{
             setListOperations.deleteSet(Integer(set.id))
+            setList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, setList.size)
         }
 
         viewHolder.editButton.setOnClickListener{

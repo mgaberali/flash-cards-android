@@ -48,10 +48,10 @@ class SetListActivity: AppCompatActivity(), SetListOperations {
 
     }
 
-    override fun editSet(set: Set, it: View) {
+    override fun editSet(position:Int, set: Set, it: View) {
         var pair = onButtonShowPopupWindowClick(it)
         prepareFormToUpdate(pair.first, set)
-        clickListenerToUpdateSet(pair.first, pair.second, set)
+        clickListenerToUpdateSet(pair.first, pair.second, set, position)
     }
 
     override fun deleteSet(setId: Integer) {
@@ -89,7 +89,7 @@ class SetListActivity: AppCompatActivity(), SetListOperations {
                     if(response.isSuccessful){
                         val setsList = response.body()
                         setsList?.let{
-                            val setAdapter = SetAdapter(ArrayList(setsList), this@SetListActivity)
+                            val setAdapter: SetAdapter = SetAdapter(ArrayList(setsList), this@SetListActivity)
                             sets_recycleview.adapter = setAdapter
                         }
                         sets_recycleview.scrollToPosition(0)
@@ -132,7 +132,7 @@ class SetListActivity: AppCompatActivity(), SetListOperations {
         setDescTextView.text = set.desc
     }
 
-    fun clickListenerToUpdateSet(popupView: View, popupWindow: PopupWindow, set: Set){
+    fun clickListenerToUpdateSet(popupView: View, popupWindow: PopupWindow, set: Set, position:Int){
         var button =  popupView.findViewById(R.id.addSett) as Button
         button.setOnClickListener({
             var setNameTextView = popupView.findViewById(R.id.setName) as TextView
@@ -147,10 +147,11 @@ class SetListActivity: AppCompatActivity(), SetListOperations {
                 override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
                     Log.i("UPDATE_SET", "update set repsonse received successfully")
                     Log.i("UPDATE_SET", response.toString())
-//                    Log.i("UPDATE_SET", response!!.raw().request().method())
+                    Log.i("UPDATE_SET", response!!.raw().request().method())
                     if(response!!.isSuccessful){
                         Log.i("UPDATE_SET", "update set repsonse received successfully")
                         popupWindow.dismiss()
+                        (sets_recycleview.adapter as SetAdapter).updateSet(position= position, setId = Integer(set.id), setData = setCreateRequest)
                     }
                 }
             })
@@ -163,15 +164,18 @@ class SetListActivity: AppCompatActivity(), SetListOperations {
             var setNameTextView = popupView.findViewById(R.id.setName) as TextView
             var setDescTextView = popupView.findViewById(R.id.setDesc) as TextView
             val setCreateRequest = SetCreateRequest(name=setNameTextView.text.toString(), desc = setDescTextView.text.toString())
-            SetService.addSet(request = setCreateRequest).enqueue(object: Callback<Void>{
-                override fun onFailure(call: Call<Void>?, t: Throwable?) {
+            SetService.addSet(request = setCreateRequest).enqueue(object: Callback<Integer>{
+                override fun onFailure(call: Call<Integer>?, t: Throwable?) {
                     Log.e("ADD_SET", t.toString())
                 }
 
-                override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                override fun onResponse(call: Call<Integer>?, response: Response<Integer>?) {
                     Log.i("ADD_SET", "add set repsonse received successfully")
                     if(response!!.isSuccessful){
                         Log.i("ADD_SET", "add set repsonse received successfully")
+                        var createdSetId= response.body()
+                        var newSet = Set(createdSetId as Int, setCreateRequest.name, setCreateRequest.desc, "11")
+                        (sets_recycleview.adapter as SetAdapter).addSet(newSet)
                         popupWindow.dismiss()
                     }
                 }

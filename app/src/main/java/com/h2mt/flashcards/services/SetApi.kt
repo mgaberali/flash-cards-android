@@ -11,7 +11,7 @@ interface SetApi {
     fun getSets() : Call<List<Set>>
 
     @POST("set")
-    fun addSet(@Body request: SetCreateRequest): Call<Void>
+    fun addSet(@Body request: SetCreateRequest): Call<Integer>
 
     @DELETE("set/{setId}")
     fun deleteSet(@Path("setId") userId : Integer): Call<Void>

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.h2mt.flashcards.R
 import com.h2mt.flashcards.activities.CardListActivity
 import com.h2mt.flashcards.models.Set
+import com.h2mt.flashcards.models.SetCreateRequest
 import kotlinx.android.synthetic.main.card_row_item.view.*
 import kotlinx.android.synthetic.main.set_row_item.view.*
 
@@ -40,8 +41,19 @@ class SetAdapter (private var setList: ArrayList<Set>, val setListOperations: Se
         }
 
         viewHolder.editButton.setOnClickListener{
-            setListOperations.editSet(set, it)
+            setListOperations.editSet(position, set, it)
         }
+    }
+
+    fun addSet(set: Set){
+        setList.add(set)
+        notifyItemInserted(setList.size)
+    }
+
+    fun updateSet(position: Int, setId: Integer, setData: SetCreateRequest) {
+        var newSet = Set(setId as Int, setData.name, setData.desc, "ttt")
+        setList.set(position, newSet)
+        notifyItemChanged(position)
     }
 }
 
@@ -54,5 +66,5 @@ class SetViewHolder(view: View) : RecyclerView.ViewHolder(view){
 interface SetListOperations{
     fun openSet(setId: Integer)
     fun deleteSet(setId: Integer)
-    fun editSet(setInfo: Set, it: View)
+    fun editSet(position: Int, setInfo: Set, it: View)
 }

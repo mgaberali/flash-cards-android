@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         val userSharedPref = getSharedPreferences(this
                 .getString(R.string.user_preference_file_key), Context.MODE_PRIVATE)
         with(userSharedPref.edit()){
-            putString(this@MainActivity.getString(R.string.user_preference_access_token_key), "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiZmxhc2gtY2FyZHMiXSwiZXhwIjoxNTMyMzk1OTcxLCJ1c2VyX25hbWUiOiJtb2hhbWVkQGdtYWlsLmNvbSIsImp0aSI6IjA2NjUzYzU2LWVkN2EtNDBiZi05YmI4LTZlMDE2MzgzY2Q0NyIsImNsaWVudF9pZCI6IndlYiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.TqfHJdaLATKcreZ4XUcYTaTVDaNQ4Bde294rHVdCMPI")
+            putString(this@MainActivity.getString(R.string.user_preference_access_token_key), this@MainActivity.getString(R.string.flash_cards_access_token))
             commit()
         }
         //-------------------------------------------------------

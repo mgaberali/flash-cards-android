@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Flash Cards</string>
-    <string name="flash_cards_api_url">http://192.168.1.2:8080/api/</string>
+    <string name="flash_cards_api_url">http://10.1.117.185:8080/api/</string>
     <string name="user_preference_file_key">com.h2mt.flashcards.USER_PREFERENCE</string>
     <string name="user_preference_access_token_key">accessToken</string>
+    <string name="flash_cards_access_token">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiZmxhc2gtY2FyZHMiXSwiZXhwIjoxNTM0MDQyNzY2LCJ1c2VyX25hbWUiOiJtb2hhbWVkQGdtYWlsLmNvbSIsImp0aSI6IjRjODAyM2E0LWE1ZGQtNGIwYS04MTYyLTVmYzI4NmUzNmE2NiIsImNsaWVudF9pZCI6IndlYiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.EahXUEGBFBY5J9Fogr8IPmRCmzw_KpZL0whNDBaY7xo</string>
 </resources>

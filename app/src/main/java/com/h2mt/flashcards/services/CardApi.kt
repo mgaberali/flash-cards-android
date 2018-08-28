@@ -8,6 +8,6 @@ import retrofit2.http.Query
 
 interface CardApi {
 
-    @GET("card")
+    @GET("api/card")
     fun getCardsBySetId(@Query("setId") setId: Int) : Call<List<Card>>
 }

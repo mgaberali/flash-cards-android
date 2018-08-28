@@ -25,4 +25,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/go_to_Login_temp_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="go_to_Login_temp_btn"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

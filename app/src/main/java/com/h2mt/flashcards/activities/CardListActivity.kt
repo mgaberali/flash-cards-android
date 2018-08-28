@@ -23,7 +23,7 @@ class CardListActivity : AppCompatActivity() {
         cards_recycleview.visibility = View.GONE
         cards_recycleview.layoutManager = LinearLayoutManager(this)
 
-        loadCardsBySetId(4)
+        loadCardsBySetId(1)
     }
 
     private fun loadCardsBySetId(setId: Int){

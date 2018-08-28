@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Flash Cards</string>
-    <string name="flash_cards_api_url">http://192.168.1.2:8080/api/</string>
+    <string name="flash_cards_api_url">http://172.19.253.65:8080/</string>
     <string name="user_preference_file_key">com.h2mt.flashcards.USER_PREFERENCE</string>
     <string name="user_preference_access_token_key">accessToken</string>
+    <string name="email">Email</string>
 </resources>

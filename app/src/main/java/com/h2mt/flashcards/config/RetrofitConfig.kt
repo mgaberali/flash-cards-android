@@ -1,6 +1,7 @@
 package com.h2mt.flashcards.config
 
 import android.content.Context
+import android.util.Log
 import com.h2mt.flashcards.App
 import com.h2mt.flashcards.R
 import okhttp3.OkHttpClient
@@ -30,7 +31,16 @@ object RetrofitConfig {
                     .method(original.method(), original.body())
                     .build()
 
-            it.proceed(request)
+            if(original.url().url().path.equals("/oauth/token") ||(original.url().url().path.equals("/api/users") && original.method().equals("POST"))){
+    //                Log.d("OAuthTokenRequest", original.toString())
+    //                Log.d("OAuthTokenRequestHeader", original.header("authorization"))
+    //                Log.d("OAuthTokenRequestBody", it.request().body().toString())
+
+                it.proceed(original)
+            }else{
+                Log.d("HttpRequest", request.toString())
+                it.proceed(request)
+            }
         })
 
         val client = httpClient.build()

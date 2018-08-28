@@ -30,5 +30,11 @@ class MainActivity : AppCompatActivity() {
             val intent2 = Intent(this, SignupActivity::class.java)
             startActivity(intent2)
         })
+
+
+        signinbutton.setOnClickListener({
+            val intent = Intent(this, SetListActivity::class.java)
+            startActivity(intent)
+        })
     }
 }
